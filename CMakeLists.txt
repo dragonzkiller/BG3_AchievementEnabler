@@ -6,7 +6,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION ON)
 set(CMAKE_INTERPROCEDURAL_OPTIMIZATION_DEBUG OFF)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
-set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake" CACHE FILEPATH "")
+
+if(DEFINED ENV{VCPKG_ROOT})
+	set(CMAKE_TOOLCHAIN_FILE "$ENV{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake" CACHE FILEPATH "")
+else()
+	if(DEFINED ENV{VCPKG_DEFAULT_TRIPLET} AND NOT DEFINED VCPKG_TARGET_TRIPLET)
+		set(VCPKG_TARGET_TRIPLET "$ENV{VCPKG_DEFAULT_TRIPLET}" CACHE STRING "The vcpkg triplet")
+	endif()
+endif()
 
 include(GNUInstallDirs)
 
@@ -160,12 +167,14 @@ set_property(
 	PROPERTY VS_USER_PROPS 
 	"${CMAKE_CURRENT_SOURCE_DIR}/cmake/build_stl_modules.props")
 
-# post build event
-add_custom_command(
-	TARGET 
-	${PROJECT_NAME} 
-	POST_BUILD
-	COMMAND ${CMAKE_COMMAND} -E copy
-		${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>/${PROJECT_NAME}.dll
-		"$ENV{BG3PATH}/bin/NativeMods/"
-)
+if(DEFINED ENV{BG3PATH})
+	# post build event
+	add_custom_command(
+		TARGET 
+		${PROJECT_NAME} 
+		POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy
+			${CMAKE_CURRENT_BINARY_DIR}/$<CONFIG>/${PROJECT_NAME}.dll
+			"$ENV{BG3PATH}/bin/NativeMods/"
+	)
+endif()
