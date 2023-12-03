@@ -3,15 +3,15 @@
 #define is_at(M, O, C) static_assert(offsetof(C, M) == O)
 namespace RE
 {
-        namespace ls
+	namespace ls
 	{
 		// placeholder type
 		struct UIWidget
 		{};
 	}
 
-    namespace Noesis
-    {
+	namespace Noesis
+	{
 		// because MSVC compiles std::string differently in debug mode lol
 		struct string
 		{
@@ -19,7 +19,7 @@ namespace RE
 			std::uint16_t flag04;
 			std::uint8_t unk06;
 			bool unk07;
-			char buffer[16]; // possible union with small string optimization
+			char buffer[16];  // possible union with small string optimization
 
 			constexpr auto string_view() const noexcept { return std::string_view{ buffer, length }; }
 		};
@@ -40,7 +40,7 @@ namespace RE
 		is_at(file, 0x10, XamlLoadRequest);
 		is_at(stack, 0x30, XamlLoadRequest);
 		is_at(category, 0x50, XamlLoadRequest);
-        
+
 		static inline std::add_pointer_t<void(RE::ls::UIWidget*, bool)> _SetVisiblityMask{ nullptr };
-    } // namespace Noesis
-} // namespace RE
+	}  // namespace Noesis
+}  // namespace RE

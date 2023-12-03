@@ -1,5 +1,5 @@
-#include "RE/Noesis.h"
 #include "DKUtil/Config.hpp"
+#include "RE/Noesis.h"
 
 using namespace DKUtil::Alias;
 
@@ -24,29 +24,29 @@ namespace Patches
 		{
 			patch_entry Patches[] = {
 				{ dku::Hook::Assembly::search_pattern<
-                      "48 89 5C 24 08 "       //mov     [rsp+8], rbx
-                      "48 89 7C 24 10 "       //mov     [rsp+10h], rdi
-                      "8B 79 14 "             //mov     edi, [rcx+14h]
-                      "33 DB "                //xor     ebx, ebx
-                      "48 85 FF "             //test    rdi, rdi
-                      "74 ?? "                //jz      short loc_1431B3680 [ => to patch, jz => jmp ]
-                      "4C 8B 59 08 "          //mov     r11, [rcx+8]
-                      "8B 0D ?? ?? ?? ?? "    //mov     ecx, cs:dword_145725CD8
-                      "8B 05 ?? ?? ?? ?? "    //mov     eax, cs:dword_145725C3C
-                      "8B 15 ?? ?? ?? ??">(), //mov     edx, cs:dword_145725DCC
+					  "48 89 5C 24 08 "        //mov     [rsp+8], rbx
+					  "48 89 7C 24 10 "        //mov     [rsp+10h], rdi
+					  "8B 79 14 "              //mov     edi, [rcx+14h]
+					  "33 DB "                 //xor     ebx, ebx
+					  "48 85 FF "              //test    rdi, rdi
+					  "74 ?? "                 //jz      short loc_1431B3680 [ => to patch, jz => jmp ]
+					  "4C 8B 59 08 "           //mov     r11, [rcx+8]
+					  "8B 0D ?? ?? ?? ?? "     //mov     ecx, cs:dword_145725CD8
+					  "8B 05 ?? ?? ?? ?? "     //mov     eax, cs:dword_145725C3C
+					  "8B 15 ?? ?? ?? ??">(),  //mov     edx, cs:dword_145725DCC
 					0x12, &Jmp },
 
 				// new version (patch 5)
 				{ dku::Hook::Assembly::search_pattern<
-                      "E8 ?? ?? ?? ?? "         // call    sub_1419374B0
-                      "E9 ?? ?? ?? ?? "         // jmp     loc_1419DCF8E
-                      "4C 8D 45 B0 "            // lea     r8, [rbp-50h]
-                      "49 8B D6 "               // mov     rdx, r14
-                      "49 8B CC "               // mov     rcx, r12
-                      "83 BD CC 01 00 00 00 "   // cmp     dword ptr [rbp+1CCh], 0
-                      "0F 85 ?? ?? ?? ?? "      // jnz     loc_1419DCD8B [ => to patch, nop6 ]
-                      "E8 ?? ?? ?? ?? "         // call    sub_141EAC3F0
-                      "84 C0">(),               // test    al, al
+					  "E8 ?? ?? ?? ?? "        // call    sub_1419374B0
+					  "E9 ?? ?? ?? ?? "        // jmp     loc_1419DCF8E
+					  "4C 8D 45 B0 "           // lea     r8, [rbp-50h]
+					  "49 8B D6 "              // mov     rdx, r14
+					  "49 8B CC "              // mov     rcx, r12
+					  "83 BD CC 01 00 00 00 "  // cmp     dword ptr [rbp+1CCh], 0
+					  "0F 85 ?? ?? ?? ?? "     // jnz     loc_1419DCD8B [ => to patch, nop6 ]
+					  "E8 ?? ?? ?? ?? "        // call    sub_141EAC3F0
+					  "84 C0">(),              // test    al, al
 					0x1b, &Nop6 },
 			};
 
