@@ -56,5 +56,13 @@
 				"msvc"
 			]
 		}
+	],
+	"buildPresets": [
+		{
+			"name": "msbuild-vcpkg",
+			"configurePreset": "REL",
+			"displayName": "Build MSBuild",
+			"description": "Build with MSBuild (VS)"
+		}
 	]
 }
